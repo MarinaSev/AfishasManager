@@ -2,6 +2,7 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class AfishaManagerTest {
@@ -117,6 +118,31 @@ public class AfishaManagerTest {
                 {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый"});
 
         String[] expected = {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый"};
+        String[] actual = manager.getFilms();
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetFilm() {
+        AfishaManager manager = new AfishaManager();
+        manager.setFilmName("Терминатор");
+
+        String expected = "Терминатор";
+        String actual = manager.getFilmName();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldSetFilms() {
+        AfishaManager manager = new AfishaManager();
+        manager.setFilms(new String[] {
+                "Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой"
+        });
+
+        String[] expected = {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой"};
         String[] actual = manager.getFilms();
 
         assertArrayEquals(expected, actual);
