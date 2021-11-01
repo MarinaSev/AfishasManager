@@ -43,6 +43,7 @@ public class AfishaRepository {
     public void removeAll() {
         FilmItem[] items = new FilmItem[]{};
         //как же положить пустой массив в items?
+        this.items = items;
     }
 
 }
