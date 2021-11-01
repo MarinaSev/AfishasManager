@@ -77,7 +77,6 @@ class AfishaRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
-    @Disabled
     @Test
     void shouldRemoveById() {
         AfishaRepository repository = new AfishaRepository();
