@@ -1,94 +1,57 @@
 package ru.netology.manager;
 
+import ru.netology.domain.FilmItem;
+import ru.netology.repository.AfishaRepository;
+
 
 public class AfishaManager {
+    private AfishaRepository repository;
 
-    String[] films = {
-                    "Бладшот",
-                    "Вперёд",
-                    "Отель Белград",
-                    "Джентельмены",
-                    "Кошки",
-                    "Кин-дза-дза",
-                    "Последний самурай",
-                    "Игры разума",
-                    "Незнакомка",
-                    "Обитель зла"
-    };
-    private String filmName;
-
-    public AfishaManager() {
+    public AfishaManager(AfishaRepository repository) {
+        this.repository = repository;
     }
 
-    public AfishaManager(String filmName) {
-        this.filmName = filmName;
+    public void addFilm(FilmItem item) {
+        repository.save(item);
     }
 
-    public AfishaManager(String[] films) {
-        this.films = films;
-    }
-
-    public String getFilmName() {
-        return filmName;
-    }
-
-    public void setFilmName(String filmName) {
-        this.filmName = filmName;
-    }
-
-    public String[] getFilms() {
-        return films;
-    }
-
-    public void setFilms(String[] films) {
-        this.films = films;
-    }
-
-
-    public void addFilm(String filmName) {
-        String[] tmp = new String[films.length + 1];
-        for (int i = 0; i < films.length; i++) {
-            tmp[i] = films[i];
+    public FilmItem[] getAll() {
+        FilmItem[] items = repository.findAll();
+        FilmItem[] result = new FilmItem[items.length];
+        for(int i = 0; i < items.length; i++) {
+            int j = items.length - i - 1;
+            result[i] = items[j];
         }
-        tmp[tmp.length - 1] = filmName;
-        films = tmp;
+        return result;
     }
 
-    public String[] getLastFilms() {
+    public FilmItem[] getLastFilms() {
+        FilmItem[] items = repository.findAll();
         int showFilms = 10;
         int resultLength;
 
-        if (films.length > 10) {
+        if (items.length > showFilms) {
             resultLength = 10;
-            String[] result = new String[resultLength];
-            System.arraycopy(films, films.length - 10, films, 0, 10);
+            FilmItem[] result = new FilmItem[resultLength];
+            System.arraycopy(items, items.length - showFilms, items, 0, showFilms);
             for (int i = 0; i < resultLength; i++) {
                 int j = resultLength - i - 1;
-                result[i] = films[j];
+                result[i] = items[j];
             }
             return result;
         } else {
-            resultLength = films.length;
-            String[] result = new String[resultLength];
+            resultLength = items.length;
+            FilmItem[] result = new FilmItem[resultLength];
             for (int i = 0; i < resultLength; i++) {
                 int j = resultLength - i - 1;
-                result[i] = films[j];
+                result[i] = items[j];
             }
             return result;
         }
     }
 
-
-//    public void removeFilm(String filmName) {
-//        String[] tmp = new String[films.length - 1];
-//        int index = 0;
-//        for (int i = 0; i < films.length; i++) {
-//            if (!films[i].equals(filmName)) {
-//                tmp[index] = films[i];
-//                index++;
-//            }
-//        }
-//        films = tmp;
-//    }
+    public void removeById(int id) {
+        repository.removeById(id);
+    }
 
 }
