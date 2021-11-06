@@ -3,37 +3,14 @@ package ru.netology.manager;
 
 public class AfishaManager {
 
-    String[] films = {
-                    "Бладшот",
-                    "Вперёд",
-                    "Отель Белград",
-                    "Джентельмены",
-                    "Кошки",
-                    "Кин-дза-дза",
-                    "Последний самурай",
-                    "Игры разума",
-                    "Незнакомка",
-                    "Обитель зла"
-    };
-    private String filmName;
+    String[] films = {};
+    int filmsLimit = 10;
 
     public AfishaManager() {
     }
 
-    public AfishaManager(String filmName) {
-        this.filmName = filmName;
-    }
-
-    public AfishaManager(String[] films) {
-        this.films = films;
-    }
-
-    public String getFilmName() {
-        return filmName;
-    }
-
-    public void setFilmName(String filmName) {
-        this.filmName = filmName;
+    public AfishaManager(int filmsLimit) {
+        this.filmsLimit = filmsLimit;
     }
 
     public String[] getFilms() {
@@ -44,6 +21,13 @@ public class AfishaManager {
         this.films = films;
     }
 
+    public int getFilmsLimit() {
+        return filmsLimit;
+    }
+
+    public void setFilmsLimit(int filmsLimit) {
+        this.filmsLimit = filmsLimit;
+    }
 
     public void addFilm(String filmName) {
         String[] tmp = new String[films.length + 1];
@@ -55,13 +39,12 @@ public class AfishaManager {
     }
 
     public String[] getLastFilms() {
-        int showFilms = 10;
         int resultLength;
 
-        if (films.length > 10) {
-            resultLength = 10;
+        if (films.length > filmsLimit) {
+            resultLength = filmsLimit;
             String[] result = new String[resultLength];
-            System.arraycopy(films, films.length - 10, films, 0, 10);
+            System.arraycopy(films, films.length - filmsLimit, films, 0, filmsLimit);
             for (int i = 0; i < resultLength; i++) {
                 int j = resultLength - i - 1;
                 result[i] = films[j];

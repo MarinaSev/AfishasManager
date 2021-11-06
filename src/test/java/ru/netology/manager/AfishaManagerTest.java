@@ -7,9 +7,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AfishaManagerTest {
 
+    private String film1 = "Бладшот";
+    private String film2 = "Вперёд";
+    private String film3 = "Отель Белград";
+    private String film4 = "Джентельмены";
+    private String film5 = "Кошки";
+    private String film6 = "Кин-дза-дза";
+    private String film7 = "Последний самурай";
+    private String film8 = "Игры разума";
+    private String film9 = "Незнакомка";
+    private String film10 = "Обитель зла";
+    private String film11 = "Отчаянные";
+    private String film12 = "Мужчина и женщина";
+
     @Test
-    public void shouldGetLastFilmsFromManagerLess10() {
-        AfishaManager manager = new AfishaManager(new String[]{"Бладшот", "Вперёд", "Отель Белград"});
+    public void shouldGetLastFilmsLessLimitList() {
+        AfishaManager manager = new AfishaManager();
+
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
 
         String[] expected = {"Отель Белград", "Вперёд", "Бладшот"};
         String[] actual = manager.getLastFilms();
@@ -18,12 +35,24 @@ public class AfishaManagerTest {
     }
 
     @Test
-    public void shouldGetLastFilmsFromManagerMore10() {
-                AfishaManager manager = new AfishaManager("Отчаянные");
+    public void shouldGetLastFilmsAboveLimitList() {
+        AfishaManager manager = new AfishaManager();
 
-                manager.addFilm(manager.getFilmName());
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+        manager.addFilm(film8);
+        manager.addFilm(film9);
+        manager.addFilm(film10);
+        manager.addFilm(film11);
+        manager.addFilm(film12);
 
         String[] expected = {
+                "Мужчина и женщина",
                 "Отчаянные",
                 "Обитель зла",
                 "Незнакомка",
@@ -32,118 +61,114 @@ public class AfishaManagerTest {
                 "Кин-дза-дза",
                 "Кошки",
                 "Джентельмены",
-                "Отель Белград",
-                "Вперёд"};
+                "Отель Белград"};;
         String[] actual = manager.getLastFilms();
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldGetLastFilmsFrom10() {
+    public void shouldGetLastFilmsSameLimitList() {
         AfishaManager manager = new AfishaManager();
+
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+        manager.addFilm(film8);
+        manager.addFilm(film9);
+        manager.addFilm(film10);
 
         String[] expected = {
                 "Обитель зла",
                 "Незнакомка",
                 "Игры разума",
                 "Последний самурай",
-                "Кин-дза-дза","Кошки",
+                "Кин-дза-дза",
+                "Кошки",
                 "Джентельмены",
                 "Отель Белград",
                 "Вперёд",
-                "Бладшот"};
+                "Бладшот"};;
         String[] actual = manager.getLastFilms();
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldAddFlm() {
-        AfishaManager manager = new AfishaManager("Отчаянные");
+    public void shouldGetLastFilmsLessManagerLimitList() {
+        AfishaManager manager = new AfishaManager(12);
 
-        manager.addFilm(manager.getFilmName());
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+
+        String[] expected = {"Кин-дза-дза","Кошки", "Джентельмены", "Отель Белград", "Вперёд", "Бладшот"};
+        String[] actual = manager.getLastFilms();
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetLastFilmsAboveManagerLimitList() {
+        AfishaManager manager = new AfishaManager(8);
+
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+        manager.addFilm(film8);
+        manager.addFilm(film9);
+        manager.addFilm(film10);
+        manager.addFilm(film11);
+        manager.addFilm(film12);
 
         String[] expected = {
-                "Бладшот",
-                "Вперёд",
-                "Отель Белград",
-                "Джентельмены",
-                "Кошки",
-                "Кин-дза-дза",
-                "Последний самурай",
-                "Игры разума",
-                "Незнакомка",
+                "Мужчина и женщина",
+                "Отчаянные",
                 "Обитель зла",
-                "Отчаянные"
-        };
-        String[] actual = manager.getFilms();
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldGetFlmList() {
-        AfishaManager manager = new AfishaManager();
-        String[] expected = {
-                "Бладшот",
-                "Вперёд",
-                "Отель Белград",
-                "Джентельмены",
-                "Кошки",
-                "Кин-дза-дза",
-                "Последний самурай",
-                "Игры разума",
                 "Незнакомка",
-                "Обитель зла"};
-        String[] actual = manager.getFilms();
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldRefreshFilmList() {
-        AfishaManager manager = new AfishaManager(new String[]
-                {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый"});
-
-        String[] expected = {"Десятый", "Девятый", "Восьмой", "Седьмой", "Шестой", "Пятый", "Четвёртый", "Третий", "Второй", "Первый"};
+                "Игры разума",
+                "Последний самурай",
+                "Кин-дза-дза",
+                "Кошки"};;
         String[] actual = manager.getLastFilms();
 
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldJustRefreshFilmList() {
-        AfishaManager manager = new AfishaManager(new String[]
-                {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый"});
+    public void shouldGetLastFilmsManagerLimitList() {
+        AfishaManager manager = new AfishaManager(8);
 
-        String[] expected = {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой", "Седьмой", "Восьмой", "Девятый", "Десятый"};
-        String[] actual = manager.getFilms();
+        manager.addFilm(film1);
+        manager.addFilm(film2);
+        manager.addFilm(film3);
+        manager.addFilm(film4);
+        manager.addFilm(film5);
+        manager.addFilm(film6);
+        manager.addFilm(film7);
+        manager.addFilm(film8);
 
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSetFilm() {
-        AfishaManager manager = new AfishaManager();
-        manager.setFilmName("Терминатор");
-
-        String expected = "Терминатор";
-        String actual = manager.getFilmName();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldSetFilms() {
-        AfishaManager manager = new AfishaManager();
-        manager.setFilms(new String[] {
-                "Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой"
-        });
-
-        String[] expected = {"Первый", "Второй", "Третий", "Четвёртый", "Пятый", "Шестой"};
-        String[] actual = manager.getFilms();
+        String[] expected = {
+                "Игры разума",
+                "Последний самурай",
+                "Кин-дза-дза",
+                "Кошки",
+                "Джентельмены",
+                "Отель Белград",
+                "Вперёд",
+                "Бладшот"};;
+        String[] actual = manager.getLastFilms();
 
         assertArrayEquals(expected, actual);
     }
